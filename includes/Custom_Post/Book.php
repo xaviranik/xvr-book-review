@@ -6,6 +6,7 @@ class Book {
 
     protected static $category = 'Book Reviews';
     protected static $category_slug = 'book-reviews';
+    protected static $post_type = 'books';
 
     public function __construct() {
         add_action( 'init', [ $this, 'register_book_post_type' ] );
@@ -18,6 +19,10 @@ class Book {
 
     public static function get_category_slug() {
         return self::$category_slug;
+    }
+
+    public static function get_post_type() {
+        return self::$post_type;
     }
 
     public function register_book_post_type() {
@@ -42,7 +47,7 @@ class Book {
             'supports'      => ['title', 'editor', 'thumbnail', 'excerpt', 'comments'],
         ];
 
-        register_post_type( 'books', $args );
+        register_post_type( self::$post_type, $args );
     }
 
     public function set_default_category($post_id, $post) {

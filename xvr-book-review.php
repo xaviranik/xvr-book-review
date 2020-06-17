@@ -18,10 +18,10 @@ if (!defined('ABSPATH')) exit;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+use XVR\Book_Review\Admin_Handler;
 use XVR\Book_Review\Custom_Post\Book;
 use XVR\Book_Review\Installer;
-
-
+use XVR\Book_Review\Meta_Box\BookInfo;
 
 /**
  * Main plugin class
@@ -78,7 +78,9 @@ final class XVR_Book_Review
      */
     public function init_plugin()
     {
-        new Book;
+        if ( is_admin() ) {
+            new Admin_Handler;
+        }
     }
 
     /**
