@@ -1,0 +1,19 @@
+{
+    "name": "xavir/xvr-book-review",
+    "description": "Custom post type plugin for Books",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "xavir",
+            "email": "xaviranik.me@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "XVR\\Book_Review\\": "includes/"
+        }
+    }
+}
