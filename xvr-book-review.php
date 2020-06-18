@@ -3,7 +3,7 @@
 /**
  * Plugin Name:       XVR Book Review
  * Plugin URI:        https://zabiranik.me
- * Description:       Basic plugin for Wordpress
+ * Description:       Book review plugin for wordpress
  * Version:           1.0.0
  * Requires at least: 5.2
  * Requires PHP:      7.2
