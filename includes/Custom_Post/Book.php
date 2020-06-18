@@ -8,23 +8,47 @@ class Book {
     protected static $category_slug = 'book-reviews';
     protected static $post_type = 'books';
 
+    /**
+     * Constructor
+     */
     public function __construct() {
         add_action( 'init', [ $this, 'register_book_post_type' ] );
+        add_action( 'init', [ $this, 'register_book_taxonomy' ] );
         add_action( 'save_post_books', [ $this, 'set_default_category' ], 10, 2 );
     }
 
+    /**
+     * Gets the category
+     *
+     * @return string
+     */
     public static function get_category() {
         return self::$category;
     }
 
+    /**
+     * Gets the category slug
+     *
+     * @return string
+     */
     public static function get_category_slug() {
         return self::$category_slug;
     }
 
+    /**
+     * Gets post type
+     *
+     * @return string
+     */
     public static function get_post_type() {
         return self::$post_type;
     }
 
+    /**
+     * Registers post type
+     *
+     * @return void
+     */
     public function register_book_post_type() {
         $labels = [
             'name'               => __('Books', 'xvr-book-review'),
@@ -50,6 +74,38 @@ class Book {
         register_post_type( self::$post_type, $args );
     }
 
+    public function register_book_taxonomy() {
+        $labels = [
+            'name'              => _x('Genres', 'taxonomy general name'),
+            'singular_name'     => _x('Genre', 'taxonomy singular name'),
+            'search_items'      => __('Search Genres'),
+            'all_items'         => __('All Genres'),
+            'parent_item'       => __('Parent Genre'),
+            'parent_item_colon' => __('Parent Genre:'),
+            'edit_item'         => __('Edit Genre'),
+            'update_item'       => __('Update Genre'),
+            'add_new_item'      => __('Add New Genre'),
+            'new_item_name'     => __('New Genre Name'),
+            'menu_name'         => __('Genre'),
+        ];
+        $args = [
+            'hierarchical'      => true,
+            'labels'            => $labels,
+            'show_ui'           => true,
+            'show_admin_column' => true,
+            'query_var'         => true,
+            'rewrite'           => ['slug' => 'genre'],
+        ];
+        register_taxonomy( 'Genre', [ $this->get_post_type() ], $args);
+    }
+
+    /**
+     * Sets the default category for a post
+     *
+     * @param integer $post_id
+     * @param object $post
+     * @return void
+     */
     public function set_default_category($post_id, $post) {
         $taxonomy = 'category';
         $term = get_term_by('slug', self::$category_slug, $taxonomy);

@@ -5,10 +5,10 @@ namespace XVR\Book_Review;
 use XVR\Book_Review\Custom_Post\Book;
 use XVR\Book_Review\Meta_Box\BookInfo;
 
-class Admin_Handler {
+class Book_Handler {
 
     /**
-     * Admin initialization
+     * Book initialization
      */
     public function __construct() {
         new Book;
